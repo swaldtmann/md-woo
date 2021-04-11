@@ -1,0 +1,10 @@
+/.DS_Store
+
+/.vscode/
+.venv/**
+
+/firmware/wlan.json
+
+/.env
+
+/deploy/**
