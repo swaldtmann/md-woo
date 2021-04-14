@@ -1,0 +1,9 @@
+[submodule "submodules/Utilities"]
+	path = submodules/Utilities
+	url = https://github.com/Wei1234c/Utilities.git
+[submodule "submodules/Bridges"]
+	path = submodules/Bridges
+	url = https://github.com/Wei1234c/Bridges.git
+[submodule "submodules/Signal_Generators"]
+	path = submodules/Signal_Generators
+	url = https://github.com/Wei1234c/Signal_Generators.git
