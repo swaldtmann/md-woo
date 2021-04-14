@@ -16,10 +16,10 @@ esptool = "*"
 rshell = "*"
 pyyaml = "*"
 pylint = "*"
-paho-mqtt = "*"
-bump2version = "*"
 notebook = "*"
 jupyter-micropython-remote = "*"
+mpy-cross = "*"
+debugpy = "*"
 
 [dev-packages]
 

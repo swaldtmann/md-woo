@@ -2,7 +2,7 @@
 set -e
 
 # Make sure we're running from the right directory.
-[ -e build.sh -a -d firmware -a -d config ] || {
+[ -e build.sh -a -d firmware ] || {
 	echo 'This script has to run from the top level of the repository.' >&2
 	exit 1
 }
