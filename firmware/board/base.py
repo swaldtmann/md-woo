@@ -6,12 +6,10 @@ import ure
 
 class Board():
 
-    def __init__(self, network):
-        self.network = network
+    def __init__(self):
         self.display = None      # Both will need to be initialized by the actual board, at least with a noop class,
         self.pins_by_num = {}
         self.pins_by_name = {}
-        self.digits_re = ure.compile("^[\d]+$")
 
     def init_ssd1306i2c(self, reset_pin, scl_pin, sda_pin):
         print("Initializing SSD1306.")
@@ -31,9 +29,7 @@ class Board():
            driver = None
         print("Display driver: ", driver)   
         self.display = Display(
-            driver,
-            self.network
-        )
+            driver)
         print("Display: ", Display)
         self.display.clear()
         print("SSD1306 initialized.")

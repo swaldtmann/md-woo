@@ -8,3 +8,5 @@
 /.env
 
 /deploy/**
+
+.DS_Store
