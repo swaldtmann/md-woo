@@ -1,4 +1,5 @@
 from task import Task
+from button import Button
 
 class Display(Task):
 
@@ -34,16 +35,16 @@ class Display(Task):
                 self.driver.text(self.lines[row], 0, 8 * row)
 
         # Status bar.
-        self.driver.text("WL " + " ", 16, 57)
+        if Button.button_a_pressed:
+            self.driver.text("Beeper on ", 0, 57)
+        else:
+            self.driver.text("Beeper off", 0, 57)
         self.driver.text("<3", 113, 57, int(self.blip))
 
         # Show result and update things.
         self.driver.show()
 
-
     def update(self, scheduler):
-        mqtt_status = "M"  # FIXME
-        wlan_status = "WL"  # FIXME
         self.redraw()
 
     def clear(self):
