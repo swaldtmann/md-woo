@@ -35,10 +35,10 @@ class Display(Task):
                 self.driver.text(self.lines[row], 0, 8 * row)
 
         # Status bar.
-        if Button.button_a_pressed:
-            self.driver.text("Beeper on ", 0, 57)
-        else:
-            self.driver.text("Beeper off", 0, 57)
+        #if Button.button_a_pressed:
+        #    self.driver.text("Beeper on ", 0, 57)
+        #else:
+        #    self.driver.text("Beeper off", 0, 57)
         self.driver.text("<3", 113, 57, int(self.blip))
 
         # Show result and update things.
