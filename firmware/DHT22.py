@@ -1,6 +1,7 @@
 from task import Task
 from color_text import ColorText as ct
 from machine import Pin 
+from micropython import const
 import dht
 
 
@@ -24,13 +25,14 @@ class DHT22(Task):
     dht = DHT22(board.display)
     """
 
-    def __init__(self, display, pin=22):
+    def __init__(self, display, name='sensor_1', pin=22):
         super().__init__(interval = 2000)
         if display:
             self.display = display
         
         print("DHT Sensor init ...")
 
+        self.name = name
         self.pin = Pin(const(pin))
         print("pin ", self.pin)
 
@@ -43,13 +45,19 @@ class DHT22(Task):
             self.val_history[val] = list()
 
     def update(self, scheduler):
-        self.display.text("DHT Sensor ", 0)
+        self.display.text('DHT {name}'.format(
+            name=self.name
+        ), 0)
 
         self.dht_sensor.measure()
         temp = self.dht_sensor.temperature()
         hum = self.dht_sensor.humidity()
-        print('Temperature: %3.1f C' %temp)
-        print('Humidity: %3.1f %%' %hum)
+        print('{name} Temperature: {temp:6.1f}C'.format(
+            name=self.name, temp=temp
+        ))
+        print('{name} Humidity: {hum:4.1f}C'.format(
+            name=self.name, hum=hum
+        ))
         
         line_out = '{temp:6.1f}C {hum:4.1f}%'.format(
             temp=temp, hum=hum)
