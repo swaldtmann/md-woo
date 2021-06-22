@@ -24,6 +24,7 @@ class DHT22(Task):
     from DHT22 import DHT22
     dht = DHT22(board.display)
     """
+    sensor_id = 0
 
     def __init__(self, display, name='sensor_1', pin=22):
         super().__init__(interval = 2000)
@@ -34,7 +35,11 @@ class DHT22(Task):
 
         self.name = name
         self.pin = Pin(const(pin))
-        print("pin ", self.pin)
+        DHT22.sensor_id += 1
+        self.id = DHT22.sensor_id
+        print("Name ", self.name)
+        print("Pin ", self.pin)
+        print("ID ", DHT22.sensor_id)
 
 
         BMP_VALUES = ["temp", "hum"]
@@ -45,23 +50,26 @@ class DHT22(Task):
             self.val_history[val] = list()
 
     def update(self, scheduler):
-        self.display.text('DHT {name}'.format(
+        self.display.text('DHT Sensor'.format(
             name=self.name
         ), 0)
 
         self.dht_sensor.measure()
         temp = self.dht_sensor.temperature()
         hum = self.dht_sensor.humidity()
-        print('{name} Temperature: {temp:6.1f}C'.format(
+        print('{id:1d}:'.format(
+            id=self.id
+        ))
+        print('{name} Temperature: {temp:4.1f}C'.format(
             name=self.name, temp=temp
         ))
         print('{name} Humidity: {hum:4.1f}C'.format(
             name=self.name, hum=hum
         ))
         
-        line_out = '{temp:6.1f}C {hum:4.1f}%'.format(
-            temp=temp, hum=hum)
-        self.display.text(line_out, 1)
+        line_out = 'ID:{id:1d} {temp:4.1f}C {hum:4.1f}%'.format(
+            id=self.id, temp=temp, hum=hum)
+        self.display.text(line_out, self.id+1)
 
         if temp:
             self.insert_history("temp", temp)
@@ -73,7 +81,8 @@ class DHT22(Task):
             h = self.val_history["hum"][index]
             line_out = '{temp:6.1f}C {hum:4.1f}%'.format(
             temp=t, hum=h)
-            self.display.text(line_out, index+1)
+            # no history!
+            # self.display.text(line_out, index+1)
 
     def insert_history(self, val, value):
         self.val_history[val].insert(0, value)
